@@ -1,0 +1,169 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alkatra&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Arapey&family=Enriqueta&display=swap');
+:root {
+
+    --color-base: red;
+    --color-base2: #ebdbca;
+    --color-brand: red;
+    --sidbar-width: 240px;
+    --font-base: "bai jamjuree";
+}
+
+
+body {
+    background-color: var(--color-base2);
+    font-family: var(--font-base), sans-serif;
+
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: rgb(88, 40, 0);
+    font-weight: 700;
+   
+}
+h4{
+    font-family: enriqueta;
+}
+h5{
+    font-family: arapey;
+}
+
+a {
+    text-decoration: none;
+    transition: all 0.4 ease;
+}
+
+a:hover {
+    color: black;
+}
+
+img {
+    width: 100%
+}
+
+.full-height {
+    min-height: 100vh;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 50px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    background-color: #c29159e0;
+}
+
+.navbar .nav-link {
+    font-weight: 1000;
+    color: rgb(128, 68, 0);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    border-radius: 5%;
+}
+
+.navbar .nav-link:hover {
+    color: #572202;
+    box-shadow: 0 0 1rem rgb(180, 102, 0);
+}
+
+.navbar .nav-link.active {
+    color: rgb(95, 39, 2);
+}
+
+p {
+    font-weight: bolder;
+}
+
+.text-brand {
+    color: rgb(168, 114, 43);
+    font-family: Alkatra;
+    font-size: 50px;
+}
+
+.social-media a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    border: .2rem solid rgb(138, 62, 0);
+    border-radius: 50%;
+    margin-top: 1rem;
+    transition: .5s;
+    margin: 2rem 1rem 2rem 0;
+
+}
+
+.social-media a:hover {
+    background-color: #f1ad82;
+    box-shadow: 0 0 1rem rgb(180, 102, 0);
+}
+
+.btn-brand {
+    background-color: #6e2a00ad;
+    color: black;
+    border-radius: 10px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.btn-brand a {
+    transition: .5s;
+   
+}
+
+.btn-brand:hover {
+    color: bisque;
+    background-color: #572405;
+
+}
+
+.bg-base {
+    background-color: #bd894581;
+}
+
+.shadow-effect {
+    transition: all 0.5sec;
+}
+
+.shadow-effect:hover {
+    box-shadow: -6px 6px 0 0 rgba(153, 94, 6, 0.747);
+}
+
+@media (min-width: 992px) {
+    .navbar {
+        min-height: 100vh;
+        width: var(--sidbar-width);
+        background: linear-gradient(rgba(238, 206, 169, 0.5), rgba(233, 197, 163, 0.753));
+    }
+
+    #content-wrapper {
+        padding-left: var(--sidbar-width);
+    }
+
+}
+
+.card-custom .card-custom-image {
+    overflow: hidden;
+}
+
+.card-custom .card-custom-image img {
+    transition: all 0.4s ease;
+}
+
+.card-custom:hover .card-custom-image img {
+    transform: scale(1.1);
+
+}
+@media (max-width: 440px){
+    #home{
+        margin-top: 40px;
+    }
+}
