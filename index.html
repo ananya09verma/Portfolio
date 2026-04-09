@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tooltip Testing Environment</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #333;
+            color: white;
+            padding: 1rem;
+            z-index: 100;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+        }
+
+        .main-content {
+            margin-top: 80px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            background: white;
+        }
+
+        .hidden-content {
+            display: none;
+            padding: 15px;
+            background: #f9f9f9;
+            margin-top: 10px;
+            border-radius: 4px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        .btn:hover {
+            background: #0056b3;
+        }
+
+        .tooltip-target {
+            display: inline-block;
+            margin: 10px;
+            padding: 5px;
+            border: 1px dashed #666;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+
+        .scrollable-container {
+            height: 200px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 20px 0;
+        }
+
+        .hover-section {
+            padding: 10px;
+            background: #f0f0f0;
+            margin: 10px 0;
+        }
+
+        .hover-section:hover .hover-content {
+            display: block;
+        }
+
+        .hover-content {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #e0e0e0;
+        }
+
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Dropdown Styles */
+        #dropdown {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            background: #fff;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+
+        /* Multi-select Checkboxes */
+        .form-group div label {
+            display: block;
+            margin: 5px 0;
+            font-size: 0.95rem;
+            cursor: pointer;
+        }
+
+        .form-group div label input[type="checkbox"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        /* Single Checkbox */
+        #singleCheckbox {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        label[for="singleCheckbox"] {
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        /* Radio Buttons */
+        .form-group div label input[type="radio"] {
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .form-group div label {
+            font-size: 0.95rem;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        /* General consistency with existing layout */
+        .form-group {
+            margin: 15px 0;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+    </style>
+</head>
+<body>
+<!--     <nav class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#settings">Settings</a>
+    </nav> -->
+
+    <div class="main-content">
+        <h1>Tooltip Testing Environment</h1>
+        
+        <div class="card">
+            <h2>Basic Elements</h2>
+            <span class="tooltip-target">Hover me for tooltip</span>
+            <button class="btn tooltip-target">Button with tooltip</button>
+        </div>
+
+        <div class="card">
+            <h2>Interactive Elements</h2>
+            <button id="toggleButton" class="btn tooltip-target" onclick="toggleContent('hidden1')">Toggle Hidden Content</button>
+            <div id="hidden1" class="hidden-content">
+                <p>This content appears after clicking the button</p>
+                <span class="tooltip-target">Hidden tooltip target</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Scrollable Content</h2>
+            <div class="scrollable-container">
+                <p>Scroll down for more tooltip targets...</p>
+                <div style="margin-top: 100px">
+                    <span class="tooltip-target">Scrolled tooltip 1</span>
+                </div>
+                <div style="margin-top: 100px">
+                    <span class="tooltip-target">Scrolled tooltip 2</span>
+                </div>
+                <div style="margin-top: 100px">
+                    <span class="tooltip-target">Scrolled tooltip 3</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Hover Elements</h2>
+            <div class="hover-section">
+                <p>Hover over this section</p>
+                <div class="hover-content">
+                    <span class="tooltip-target">Tooltip in hover content</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Form Elements</h2>
+            <form onsubmit="return false;">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" class="tooltip-target" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="tooltip-target" placeholder="Enter email">
+                </div>
+                <button class="btn tooltip-target" type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Modal Dialog</h2>
+            <button class="btn" onclick="toggleModal()">Open Modal</button>
+            <div class="modal-overlay" id="modalOverlay"></div>
+            <div class="modal" id="modal">
+                <h3>Modal Content</h3>
+                <p>This is a modal dialog with a <span class="tooltip-target">tooltip target</span></p>
+                <button class="btn" onclick="toggleModal()">Close</button>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <h2>Additional Elements</h2>
+        <!-- Dropdown -->
+        <div class="form-group">
+            <label for="dropdown">Select an option:</label>
+            <select id="dropdown" class="tooltip-target">
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+        </div>
+    
+        <!-- Multi-select Dropdown with Checkboxes -->
+        <div class="form-group">
+            <label>Choose options:</label>
+            <div>
+                <label><input type="checkbox" value="optionA" /> Option A</label>
+                <label><input type="checkbox" value="optionB" /> Option B</label>
+                <label><input type="checkbox" value="optionC" /> Option C</label>
+            </div>
+        </div>
+    
+        <!-- Single Checkbox -->
+        <div class="form-group">
+            <label>
+                <input type="checkbox" id="singleCheckbox" />
+                Accept terms and conditions
+            </label>
+        </div>
+    
+        <!-- Radio Buttons -->
+        <div class="form-group">
+            <label>Select your gender:</label>
+            <div>
+                <label><input type="radio" name="gender" value="male" /> Male</label>
+                <label><input type="radio" name="gender" value="female" /> Female</label>
+                <label><input type="radio" name="gender" value="other" /> Other</label>
+            </div>
+        </div>
+    </div>
+    
+
+    <script>
+        function toggleContent(id) {
+            const element = document.getElementById(id);
+            const button = document.getElementById('toggleButton'); // Get the button element by id
+            if (element.style.display === 'block') {
+                element.style.display = 'none';
+                button.textContent = 'Toggle Hidden Content'; // Reset text back to original
+                button.style.backgroundColor = '#007bff'; // Reset background color
+            } else {
+                element.style.display = 'block';
+                button.textContent = 'Button Clicked Successfully'; // Change button text
+                button.style.backgroundColor = '#28a745'; // Change background color to green
+            }
+        }
+
+        function toggleModal() {
+            const modal = document.getElementById('modal');
+            const overlay = document.getElementById('modalOverlay');
+            if (modal.style.display === 'block') {
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            } else {
+                modal.style.display = 'block';
+                overlay.style.display = 'block';
+            }
+        }
+
+        // Add some dynamic content after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const dynamicCard = document.createElement('div');
+                dynamicCard.className = 'card';
+                dynamicCard.innerHTML = `
+
+                    <h2>Dynamically Added Content</h2>
+                    <p>This content was added after page load</p>
+                    <span class="tooltip-target">Dynamic tooltip target</span>
+                `;
+                document.querySelector('.main-content').appendChild(dynamicCard);
+            }, 2000);
+        });
+    </script>
+    
+    <script>
+      (function (g, u, i, d, e, s, q, c, vid, env) {
+        g[e] = g[e] || []
+        g.AccountId = s;
+        g.DomainAccountId = q;
+        g.ChatDisplayMode = c;
+        g.VersionId = vid;
+        g.Environment = env;
+        var f = u.getElementsByTagName(i)[0]
+        var k = u.createElement(i);
+        k.async = true;
+        k.src = 'https://user.guidenow.ai/embeded.js';
+        f.parentNode.insertBefore(k, f);
+        k.onload = function() {
+        if (g.captureUserDetails) {
+          g.captureUserDetails({
+              OrganizationId: 'organization_Id',  // add value of organization id
+              UserId: 'user_id',                // add value of login user  id
+              UserName: '',                     // add value of login user name
+              EmailId: '',                      // add value of login user email
+              UserType: '',                     //add value of login user type
+              ScreenResolution : '',             //add value of screen resolution
+              SessionId: '',                     //add value of session Id
+              TimeZone: ''                        //add value of timezone
+          });
+        }
+      }
+      })(window, document, 'script', 'guiding', 'layer', '09042026-c0739885-ea60-49f1-ba51-28aba23b5db8','','overlay','','');
+    </script>
+
+    
+</body>
+</html>
